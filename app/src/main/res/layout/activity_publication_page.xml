@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-
-    >
+    tools:context=".publicationPage">
 
     <TextView
         android:id="@+id/lbl_topBar"
@@ -66,23 +64,12 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/btn_account"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="#CEA07F"
-        android:drawingCacheQuality="auto"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_publi"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btn_publi" />
-
-    <Button
         android:id="@+id/btn_publi"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_width="132dp"
+        android:layout_width="139dp"
         android:layout_height="66dp"
         android:background="#CEA07F"
+        android:foreground="@drawable/bouton_publi_small"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -93,13 +80,27 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="#CEA07F"
+        android:foreground="@drawable/bouton_settings_small"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_publi"
         app:layout_constraintTop_toTopOf="@+id/btn_publi"
         app:layout_constraintVertical_bias="0.0" />
 
+    <Button
+        android:id="@+id/btn_account"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#CEA07F"
+        android:drawingCacheQuality="auto"
+        android:foreground="@drawable/bouton_account_small"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_publi"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_publi"
+        app:layout_constraintVertical_bias="0.0"
+        tools:targetApi="m" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
