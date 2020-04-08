@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".parametre_page">
+
+    <TextView
+        android:id="@+id/lbl_topBar"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="#CEA07F"
+        android:text="@string/str_Switcher"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollViewMain"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#E605123C"
+        app:layout_constraintBottom_toTopOf="@+id/btn_publi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_topBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="A propos" />
+
+            <Button
+                android:id="@+id/btn_signal_prob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nous signaler un probème" />
+
+            <Button
+                android:id="@+id/btn_contact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nous contacter" />
+
+            <Button
+                android:id="@+id/btn_deco"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Se déconnecter" />
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn_publi"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="139dp"
+        android:layout_height="66dp"
+        android:background="#CEA07F"
+        android:foreground="@drawable/bouton_publi_small"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_settings"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#CEA07F"
+        android:foreground="@drawable/bouton_settings_small"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_publi"
+        app:layout_constraintTop_toTopOf="@+id/btn_publi"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btn_account"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#CEA07F"
+        android:drawingCacheQuality="auto"
+        android:foreground="@drawable/bouton_account_small"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_publi"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_publi"
+        app:layout_constraintVertical_bias="0.0"
+        tools:targetApi="m" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
