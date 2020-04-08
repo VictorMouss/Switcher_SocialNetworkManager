@@ -40,25 +40,44 @@
                 android:id="@+id/btn_about"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="A propos" />
+                android:background="@drawable/button_style"
+                android:backgroundTint="#E605123C"
+                android:backgroundTintMode="screen"
+                android:lineSpacingExtra="14sp"
+                android:text="@string/str_about"
+                android:textAlignment="viewStart"
+                android:textColor="#FFFFFF" />
 
             <Button
                 android:id="@+id/btn_signal_prob"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nous signaler un probème" />
+                android:backgroundTint="#E605123C"
+                android:backgroundTintMode="src_atop"
+                android:text="@string/str_signal_prob"
+                android:textAlignment="viewStart"
+                android:textColor="#FFFFFF" />
 
             <Button
                 android:id="@+id/btn_contact"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nous contacter" />
+                android:backgroundTint="#E605123C"
+                android:backgroundTintMode="src_atop"
+                android:text="@string/str_contact_us"
+                android:textAlignment="viewStart"
+                android:textColor="#FFFFFF" />
 
             <Button
-                android:id="@+id/btn_deco"
+                android:id="@+id/btn_disconnect"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Se déconnecter" />
+                android:backgroundTint="#E605123C"
+                android:backgroundTintMode="src_atop"
+                android:text="@string/str_disconnect"
+                android:textAlignment="viewStart"
+                android:textColor="#FFFFFF" />
+
         </LinearLayout>
     </ScrollView>
 

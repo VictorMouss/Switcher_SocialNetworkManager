@@ -3,4 +3,8 @@
     <string name="str_Switcher">Switcher</string>
     <string name="str_plus">+</string>
     <string name="str_connexion">Connexion</string>
+    <string name="str_about">A propos</string>
+    <string name="str_signal_prob">Nous signaler un probème</string>
+    <string name="str_contact_us">Nous contacter</string>
+    <string name="str_disconnect">Se déconnecter</string>
 </resources>
