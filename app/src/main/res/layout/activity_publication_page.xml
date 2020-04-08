@@ -40,7 +40,7 @@
         android:id="@+id/scrollViewMain"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#05123C"
+        android:background="#E605123C"
         app:layout_constraintBottom_toTopOf="@+id/btn_publi"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

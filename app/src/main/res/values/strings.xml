@@ -2,4 +2,5 @@
     <string name="app_name">Switcher_SocialNetworkManager</string>
     <string name="str_Switcher">Switcher</string>
     <string name="str_plus">+</string>
+    <string name="str_connexion">Connexion</string>
 </resources>
