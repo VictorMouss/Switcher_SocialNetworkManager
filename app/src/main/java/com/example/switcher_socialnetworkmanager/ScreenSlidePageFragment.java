@@ -1,5 +1,7 @@
 package com.example.switcher_socialnetworkmanager;
 
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Layout;
 import android.util.Log;
@@ -9,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
@@ -44,6 +47,8 @@ public class ScreenSlidePageFragment extends Fragment {
         btn_account = (Button) myView.findViewById(R.id.btn_account);
 
         btn_account.setOnClickListener(new View.OnClickListener() {
+
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
                 viewPager.setCurrentItem(0);

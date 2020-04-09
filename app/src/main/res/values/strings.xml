@@ -3,9 +3,14 @@
     <string name="str_Switcher">Switcher</string>
     <string name="str_plus">+</string>
     <string name="str_connexion">Connexion</string>
-    <string name="str_about">A propos</string>
-    <string name="str_signal_prob">Nous signaler un probème</string>
-    <string name="str_contact_us">Nous contacter</string>
-    <string name="str_disconnect">Se déconnecter</string>
-    <string name="str_lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="str_about"> A propos</string>
+    <string name="str_signal_prob"> Nous signaler un probème</string>
+    <string name="str_contact_us"> Nous contacter</string>
+    <string name="str_disconnect"> Se déconnecter</string>
+    <string name="str_lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+        irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+        anim id est laborum.</string>
 </resources>

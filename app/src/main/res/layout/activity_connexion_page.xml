@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".connexionPage">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/lbl_topBar"
@@ -174,7 +173,7 @@
         android:layout_height="0dp"
         android:background="#CEA07F"
         android:drawingCacheQuality="auto"
-        android:foreground="@drawable/bouton_account_small"
+        android:foreground="@drawable/bouton_account_small_down"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_publi"
         app:layout_constraintHorizontal_bias="0.0"
