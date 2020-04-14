@@ -1,12 +1,18 @@
 package com.example.switcher_socialnetworkmanager;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.SupportActionModeWrapper;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -17,11 +23,20 @@ import android.view.View.OnDragListener;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.DefaultLogger;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterConfig;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterLoginButton;
+
 import org.w3c.dom.Text;
 
-public class publication_page extends FragmentActivity implements View.OnClickListener {
+public class publication_page extends AppCompatActivity implements View.OnClickListener {
     /**
-     *
      * The number of pages (wizard steps) to show in this demo.
      */
 
@@ -29,15 +44,10 @@ public class publication_page extends FragmentActivity implements View.OnClickLi
     Button btn_publi;
     Button btn_settings;
     Button btn_account;
-    /**
-     * The pager widget, which handles animation and allows swiping horizontally to access previous
-     * and next wizard steps.
-     */
+    Fragment frag;
     private ViewPager2 viewPager;
-    /**
-     * The pager adapter, which provides the pages to the view pager widget.
-     */
     private FragmentStateAdapter pagerAdapter;
+    Fragment f0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +62,6 @@ public class publication_page extends FragmentActivity implements View.OnClickLi
         btn_account = findViewById(R.id.btn_account);
         btn_publi = findViewById(R.id.btn_publi);
         btn_settings = findViewById(R.id.btn_settings);
-
 
 
         btn_account.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +99,7 @@ public class publication_page extends FragmentActivity implements View.OnClickLi
                 btn_settings.setForeground(getResources().getDrawable(R.drawable.bouton_settings_small_down));
             }
         });
+
     }
 
     @Override
@@ -126,15 +136,25 @@ public class publication_page extends FragmentActivity implements View.OnClickLi
         }
 
         @Override
-        public ScreenSlidePageFragment createFragment(int position) {
-            return new ScreenSlidePageFragment(position);
+        public Fragment createFragment(int position) {
+            switch (position) {
+                case 0:
+                    f0 = new ScreenSlidePageFragmentConnexion();
+                    return f0;
+                case 1:
+                    return new ScreenSlidePageFragmentPubli();
+                case 2:
+                default:
+                    return new ScreenSlidePageFragmentParametres();
+                                }
+
         }
 
         @Override
         public int getItemCount() {
-            Log.i("createFrag","created1");
             return NUM_PAGES;
         }
 
     }
+
 }
