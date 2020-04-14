@@ -2,7 +2,6 @@ package com.example.switcher_socialnetworkmanager;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +9,8 @@ import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
-import com.twitter.sdk.android.core.TwitterCore;
-import com.twitter.sdk.android.core.TwitterSession;
-import com.twitter.sdk.android.tweetcomposer.ComposerActivity;
 
-
-public class ScreenSlidePageFragmentPubli extends Fragment implements View.OnClickListener{
+public class ScreenSlidePageFragmentPubli extends Fragment implements View.OnClickListener {
 
     private View myView;
     private Button btn_new_publi;
@@ -31,14 +26,8 @@ public class ScreenSlidePageFragmentPubli extends Fragment implements View.OnCli
         btn_new_publi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                final TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
-
-                final Intent intent = new ComposerActivity.Builder(getActivity())
-                        .session(session)
-                        .text("Test text compo")
-                        .hashtags("#Twittter")
-                        .createIntent();
+                //exception management
+                Intent intent = new Intent(getActivity(), NouvellePublication.class);
                 startActivity(intent);
             }
         });
@@ -50,3 +39,5 @@ public class ScreenSlidePageFragmentPubli extends Fragment implements View.OnCli
 
     }
 }
+
+

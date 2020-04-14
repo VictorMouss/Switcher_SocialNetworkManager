@@ -30,10 +30,10 @@
         android:backgroundTint="#CEA07F"
         android:backgroundTintMode="src_in"
         android:shadowColor="#00000000"
-        android:text="Retour"
+        android:text="@string/str_retour"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
-        android:textSize="15dp"
+        android:textSize="15sp"
         app:layout_constraintStart_toStartOf="@+id/lbl_topBar"
         app:layout_constraintTop_toTopOf="parent" />
 

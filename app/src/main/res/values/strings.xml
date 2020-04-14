@@ -14,5 +14,7 @@
         Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
         anim id est laborum.</string>
     <string name="str_todo">TODO</string>
+    <string name="str_retour">Retour</string>
+    <string name="str_publier">Publier</string>
 
 </resources>

@@ -1,30 +1,34 @@
 package com.example.switcher_socialnetworkmanager;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.DefaultLogger;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
-import com.twitter.sdk.android.core.TwitterAuthToken;
 import com.twitter.sdk.android.core.TwitterConfig;
-import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
-import com.twitter.sdk.android.tweetcomposer.ComposerActivity;
 
 public class Twitter_log_in_activity extends AppCompatActivity {
 
     TwitterLoginButton loginButton;
     Button btn_retour;
+    View previousView;
+
+    public Twitter_log_in_activity(View previousView){
+        this.previousView=previousView;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +57,11 @@ public class Twitter_log_in_activity extends AppCompatActivity {
 
         btn_retour = findViewById(R.id.btn_retour);
         btn_retour.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
+                Button btn_Twitter = previousView.findViewById(R.id.btn_Twitter);
+                btn_Twitter.setForeground(getResources().getDrawable(R.drawable.logo_twitter_connect));
                 finish();
             }
         });
