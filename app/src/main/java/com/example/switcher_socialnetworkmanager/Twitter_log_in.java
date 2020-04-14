@@ -20,13 +20,17 @@ import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
-public class Twitter_log_in_activity extends AppCompatActivity {
+public class Twitter_log_in extends AppCompatActivity {
 
     TwitterLoginButton loginButton;
     Button btn_retour;
+    Intent currentIntent;
+    AppCompatActivity curentApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        currentIntent=getIntent();
+        curentApp=this;
         super.onCreate(savedInstanceState);
         TwitterConfig config = new TwitterConfig.Builder(this)
                 .logger(new DefaultLogger(Log.DEBUG))
@@ -40,13 +44,14 @@ public class Twitter_log_in_activity extends AppCompatActivity {
             @Override
             public void success(Result<TwitterSession> result) {
                 Log.i("Login", "Login successful");
-
+                setResult(1);
                 finish();
             }
 
             @Override
             public void failure(TwitterException exception) {
                 Log.i("Login", "Login not successful");
+                setResult(2);
             }
         });
 
@@ -55,7 +60,9 @@ public class Twitter_log_in_activity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
+                Log.i("Bouton cliqué","Bouton retour cliqué");
                 finish();
+
             }
         });
 
@@ -64,7 +71,7 @@ public class Twitter_log_in_activity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
-        Log.i("Activity Result","Back on main activity");
+        Log.i("Activity Result","Back on activity twitter login");
         loginButton.onActivityResult(requestCode,resultCode,data);
     }
 }

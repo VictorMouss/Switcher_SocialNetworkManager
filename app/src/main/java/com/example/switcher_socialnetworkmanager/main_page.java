@@ -1,5 +1,6 @@
 package com.example.switcher_socialnetworkmanager;
 
+import android.app.Instrumentation;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
+import androidx.activity.*;
 
 public class main_page extends AppCompatActivity implements View.OnClickListener {
     /**
@@ -23,10 +25,10 @@ public class main_page extends AppCompatActivity implements View.OnClickListener
     Button btn_publi;
     Button btn_settings;
     Button btn_account;
-    Fragment frag;
     private ViewPager2 viewPager;
     private FragmentStateAdapter pagerAdapter;
     Fragment f0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,6 +142,7 @@ public class main_page extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.i("Activity Result","Back on main activity");
     }
 
 }
