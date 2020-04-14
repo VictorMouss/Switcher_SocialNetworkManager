@@ -24,11 +24,6 @@ public class Twitter_log_in_activity extends AppCompatActivity {
 
     TwitterLoginButton loginButton;
     Button btn_retour;
-    View previousView;
-
-    public Twitter_log_in_activity(View previousView){
-        this.previousView=previousView;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +55,6 @@ public class Twitter_log_in_activity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
-                Button btn_Twitter = previousView.findViewById(R.id.btn_Twitter);
-                btn_Twitter.setForeground(getResources().getDrawable(R.drawable.logo_twitter_connect));
                 finish();
             }
         });
@@ -71,6 +64,7 @@ public class Twitter_log_in_activity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
+        Log.i("Activity Result","Back on main activity");
         loginButton.onActivityResult(requestCode,resultCode,data);
     }
 }

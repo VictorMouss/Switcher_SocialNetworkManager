@@ -1,5 +1,6 @@
 package com.example.switcher_socialnetworkmanager;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -134,6 +135,11 @@ public class main_page extends AppCompatActivity implements View.OnClickListener
             return NUM_PAGES;
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
 }
