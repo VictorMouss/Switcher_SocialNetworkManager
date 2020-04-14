@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btn_addPubli"
+        android:id="@+id/btn_new_publi"
         android:layout_width="50dp"
         android:layout_height="40dp"
         android:background="@null"

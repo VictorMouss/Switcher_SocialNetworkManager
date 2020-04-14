@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 
 import com.twitter.sdk.android.core.Callback;
@@ -12,15 +13,18 @@ import com.twitter.sdk.android.core.DefaultLogger;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterAuthToken;
 import com.twitter.sdk.android.core.TwitterConfig;
+import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
+import com.twitter.sdk.android.tweetcomposer.ComposerActivity;
 
 public class Twitter_log_in_activity extends AppCompatActivity {
 
     TwitterLoginButton loginButton;
-    Button btn_tweeter;
+    Button btn_retour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +41,21 @@ public class Twitter_log_in_activity extends AppCompatActivity {
             @Override
             public void success(Result<TwitterSession> result) {
                 Log.i("Login", "Login successful");
+
+                finish();
             }
 
             @Override
             public void failure(TwitterException exception) {
                 Log.i("Login", "Login not successful");
+            }
+        });
+
+        btn_retour = findViewById(R.id.btn_retour);
+        btn_retour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
