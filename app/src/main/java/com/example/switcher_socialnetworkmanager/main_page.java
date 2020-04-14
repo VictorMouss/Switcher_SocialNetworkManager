@@ -1,6 +1,6 @@
 package com.example.switcher_socialnetworkmanager;
 
-import android.app.Instrumentation;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -8,13 +8,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
-import androidx.activity.*;
 
 public class main_page extends AppCompatActivity implements View.OnClickListener {
     /**
@@ -142,7 +142,7 @@ public class main_page extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.i("Activity Result","Back on main activity");
+        Log.i("Activity Result", "Back on main activity");
     }
 
 }

@@ -42,6 +42,7 @@ public class NouvellePublication extends AppCompatActivity {
                     startActivity(intent);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    finish();
                     Toast.makeText(NouvellePublication.this,"Vous devez d'abord être connecté !",Toast.LENGTH_SHORT).show();
                 }
             }

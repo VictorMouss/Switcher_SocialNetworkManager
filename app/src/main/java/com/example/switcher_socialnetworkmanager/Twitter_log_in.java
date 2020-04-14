@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,12 +26,12 @@ public class Twitter_log_in extends AppCompatActivity {
     TwitterLoginButton loginButton;
     Button btn_retour;
     Intent currentIntent;
-    AppCompatActivity curentApp;
+    AppCompatActivity currentApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         currentIntent=getIntent();
-        curentApp=this;
+        currentApp=this;
         super.onCreate(savedInstanceState);
         TwitterConfig config = new TwitterConfig.Builder(this)
                 .logger(new DefaultLogger(Log.DEBUG))
@@ -44,6 +45,7 @@ public class Twitter_log_in extends AppCompatActivity {
             @Override
             public void success(Result<TwitterSession> result) {
                 Log.i("Login", "Login successful");
+                Toast.makeText(currentApp,"Vous êtes connecté à Twitter",Toast.LENGTH_SHORT).show();
                 setResult(1);
                 finish();
             }

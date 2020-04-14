@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterSession;
@@ -16,10 +17,12 @@ public class Twitter_log_out extends AppCompatActivity {
 
     Button btn_retour;
     Button btn_logout;
+    AppCompatActivity currentApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        currentApp=this;
         setContentView(R.layout.activity_twitter_log_out);
         btn_retour = findViewById(R.id.btn_retour);
         btn_logout = findViewById(R.id.btn_logout);
@@ -37,6 +40,7 @@ public class Twitter_log_out extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 TwitterCore.getInstance().getSessionManager().clearActiveSession();
+                Toast.makeText(currentApp,"Vous êtes déconnecté de Twitter",Toast.LENGTH_SHORT).show();
                 setResult(1);
                 finish();
             }
