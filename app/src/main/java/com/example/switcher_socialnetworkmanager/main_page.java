@@ -45,7 +45,6 @@ public class main_page extends AppCompatActivity implements View.OnClickListener
         btn_publi = findViewById(R.id.btn_publi);
         btn_settings = findViewById(R.id.btn_settings);
 
-
         btn_account.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
@@ -132,8 +131,43 @@ public class main_page extends AppCompatActivity implements View.OnClickListener
 
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public int getItemCount() {
+            int positionActuelle = viewPager.getCurrentItem();
+            switch (positionActuelle) {
+                case 0:
+                    try {
+                        btn_account.setForeground(getResources().getDrawable(R.drawable.bouton_account_small_down));
+                        btn_publi.setForeground(getResources().getDrawable(R.drawable.bouton_publi_small));
+                        btn_settings.setForeground(getResources().getDrawable(R.drawable.bouton_settings_small));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case 1 :
+                    try {
+                        btn_account.setForeground(getResources().getDrawable(R.drawable.bouton_account_small));
+                        btn_publi.setForeground(getResources().getDrawable(R.drawable.bouton_publi_small_down));
+                        btn_settings.setForeground(getResources().getDrawable(R.drawable.bouton_settings_small));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case 2 :
+                    try {
+                        btn_account.setForeground(getResources().getDrawable(R.drawable.bouton_account_small));
+                        btn_publi.setForeground(getResources().getDrawable(R.drawable.bouton_publi_small));
+                        btn_settings.setForeground(getResources().getDrawable(R.drawable.bouton_settings_small_down));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+
+
+            }
+            String currentItemToString = Integer.toString(viewPager.getCurrentItem());
+            Log.i("Current item displayed", currentItemToString);
             return NUM_PAGES;
         }
 

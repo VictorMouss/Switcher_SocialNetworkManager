@@ -13,6 +13,8 @@ import android.widget.Toast;
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterSession;
 
+import java.net.CookieManager;
+
 public class Twitter_log_out extends AppCompatActivity {
 
     Button btn_retour;
@@ -39,9 +41,15 @@ public class Twitter_log_out extends AppCompatActivity {
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TwitterCore.getInstance().getSessionManager().clearActiveSession();
-                Toast.makeText(currentApp,"Vous êtes déconnecté de Twitter",Toast.LENGTH_SHORT).show();
-                setResult(1);
+                TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
+                if (session!=null) {
+                    TwitterCore.getInstance().getSessionManager().clearActiveSession();
+                    Toast.makeText(currentApp, "Vous êtes déconnecté de Twitter", Toast.LENGTH_SHORT).show();
+                    setResult(1);
+                }
+                else {
+                    Toast.makeText(currentApp, "Vous n'étiez pas connecté à Twitter", Toast.LENGTH_SHORT).show();
+                }
                 finish();
             }
         });
