@@ -1,12 +1,15 @@
 package com.example.switcher_socialnetworkmanager;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -16,10 +19,13 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import org.w3c.dom.Text;
+
 public class main_page extends AppCompatActivity implements View.OnClickListener {
     /**
      * The number of pages (wizard steps) to show in this demo.
      */
+
 
     private static final int NUM_PAGES = 3;
     Button btn_publi;
@@ -81,6 +87,13 @@ public class main_page extends AppCompatActivity implements View.OnClickListener
             }
         });
 
+        BroadcastReceiver broadcast_receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+            }
+        };
+        registerReceiver(broadcast_receiver, new IntentFilter("finish"));
     }
 
     @Override
@@ -145,7 +158,7 @@ public class main_page extends AppCompatActivity implements View.OnClickListener
                         e.printStackTrace();
                     }
                     break;
-                case 1 :
+                case 1:
                     try {
                         btn_account.setForeground(getResources().getDrawable(R.drawable.bouton_account_small));
                         btn_publi.setForeground(getResources().getDrawable(R.drawable.bouton_publi_small_down));
@@ -154,7 +167,7 @@ public class main_page extends AppCompatActivity implements View.OnClickListener
                         e.printStackTrace();
                     }
                     break;
-                case 2 :
+                case 2:
                     try {
                         btn_account.setForeground(getResources().getDrawable(R.drawable.bouton_account_small));
                         btn_publi.setForeground(getResources().getDrawable(R.drawable.bouton_publi_small));
@@ -167,7 +180,7 @@ public class main_page extends AppCompatActivity implements View.OnClickListener
 
             }
             String currentItemToString = Integer.toString(viewPager.getCurrentItem());
-            Log.i("Current item displayed", currentItemToString);
+            //Log.i("Current item displayed", currentItemToString);
             return NUM_PAGES;
         }
 
@@ -176,7 +189,8 @@ public class main_page extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.i("Activity Result", "Back on main activity");
+        //Log.i("Activity Result", "Back on main activity");
     }
+
 
 }

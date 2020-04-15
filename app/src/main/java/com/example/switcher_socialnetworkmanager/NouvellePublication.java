@@ -1,8 +1,12 @@
 package com.example.switcher_socialnetworkmanager;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +18,7 @@ import com.google.gson.Gson;
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.tweetcomposer.ComposerActivity;
+import com.twitter.sdk.android.tweetcomposer.TweetUploadService;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -28,6 +33,7 @@ public class NouvellePublication extends AppCompatActivity {
     EditText edTxt_message;
     AppCompatActivity currentApp;
     ArrayList<Publication> listePublications;
+    public static Long lastTweetId = 0L;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +66,9 @@ public class NouvellePublication extends AppCompatActivity {
                             .text(txt_message)
                             .hashtags()
                             .createIntent();
-                    startActivity(intent);
+                    startActivityForResult(intent,1);
+                    //setResult(1);
+                    //finish();
                     Publication publicationAdd = new Publication(txt_message,currentTime);
                     listePublications.add(publicationAdd);
                     SharedPreferences.Editor prefEditor = prefStockées.edit();
@@ -81,5 +89,34 @@ public class NouvellePublication extends AppCompatActivity {
                 finish();
             }
         });
+
+        BroadcastReceiver broadcast_reciever = new BroadcastReceiver() {
+
+            @Override
+            public void onReceive(Context arg0, Intent intent) {
+                Bundle intentExtras = intent.getExtras();
+                if (TweetUploadService.UPLOAD_SUCCESS.equals(intent.getAction())) {
+                    // success
+                    final Long tweetId = intentExtras.getLong(TweetUploadService.EXTRA_TWEET_ID);
+                    lastTweetId = tweetId;
+                    currentApp.setResult(1);
+                    finish();
+                } else if (TweetUploadService.UPLOAD_FAILURE.equals(intent.getAction())) {
+                    // failure
+                    final Intent retryIntent = intentExtras.getParcelable(TweetUploadService.EXTRA_RETRY_INTENT);
+                } else if (TweetUploadService.TWEET_COMPOSE_CANCEL.equals(intent.getAction())) {
+                    // cancel
+                }
+            }
+        };
+        registerReceiver(broadcast_reciever, new IntentFilter(TweetUploadService.UPLOAD_SUCCESS));
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.i("Activity Result Tweet", "Activity result OK. Request code : " + requestCode + " - Result code : " + resultCode);
+    }
+
+
 }
