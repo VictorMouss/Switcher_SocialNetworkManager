@@ -7,39 +7,39 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-
-import com.twitter.sdk.android.core.TwitterCore;
-import com.twitter.sdk.android.core.TwitterSession;
 
 
 public class ScreenSlidePageFragmentPubli extends Fragment implements View.OnClickListener {
 
     private View myView;
     private Button btn_new_publi;
-    TextView textView3;
-
-    public ScreenSlidePageFragmentPubli() {
-    }
-
+    Button btn_voirListePubli;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.publication_page, container, false);
         btn_new_publi = myView.findViewById(R.id.btn_new_publi);
-        textView3 = myView.findViewById(R.id.textView3);
+        btn_voirListePubli = myView.findViewById(R.id.btn_voir_publications);
+        btn_voirListePubli.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (getActivity(), ListePublications.class);
+                startActivity(intent);
+            }
+        });
+        //textView3 = myView.findViewById(R.id.textView3);
         btn_new_publi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    final TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
-                    if (session!=null){
-                        Intent intent = new Intent(getActivity(), NouvellePublication.class);
-                        startActivityForResult(intent,1);
-                    }
+                    //final TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
+                    //if (session!=null){
+                    //}
+                    Intent intent = new Intent (getActivity(), AjoutPublication.class);
+                    startActivity(intent);
                 } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(getActivity(),"Vous devez d'abord être connecté !",Toast.LENGTH_SHORT).show();

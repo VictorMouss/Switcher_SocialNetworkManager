@@ -11,25 +11,25 @@ public class Publication {
     public String textPubli;
     public Uri imageUri;
     public Date date;
+    public Long tweetId;
 
-    public Publication(String textPubli, Uri imageUri, Date date) {
+    public Publication(String textPubli, Uri imageUri, Date date, Long tweetId) {
         this.textPubli = textPubli;
         this.imageUri = imageUri;
         this.date = date;
+        this.tweetId = tweetId;
     }
 
-    public Publication(String textPubli, Date date) {
+    public Publication(String textPubli, Date date, Long tweetId) {
         this.textPubli = textPubli;
         this.imageUri = null;
         this.date = date;
+        this.tweetId = tweetId;
     }
 
 
     @Override
     public String toString() {
-        /*String dateStr = String.valueOf(date);
-        String heureStr = String.valueOf(heure);
-        String dateCorrecte =  ""+dateStr.charAt(0)+dateStr.charAt(1)+"/";*/
         return "Publication du ";
     }
 }

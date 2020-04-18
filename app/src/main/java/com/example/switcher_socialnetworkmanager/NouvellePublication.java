@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,54 +33,46 @@ public class NouvellePublication extends AppCompatActivity {
     Button btn_retour_publi;
     EditText edTxt_message;
     AppCompatActivity currentApp;
-    ArrayList<Publication> listePublications;
-    public static Long lastTweetId = 0L;
+    public static Long lastTweetId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        currentApp=this;
+        currentApp = this;
         setContentView(R.layout.activity_nouvelle_publication);
-        final SharedPreferences prefStockées =  getSharedPreferences("mesPrefs",MODE_PRIVATE);
 
         btn_publier = findViewById(R.id.btn_publier);
         btn_retour_publi = findViewById(R.id.btn_retour_publi);
         edTxt_message = findViewById(R.id.edTxt_message);
+
+        edTxt_message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (edTxt_message.getText().toString().equals("Que voulez-vous dire ?")) {
+                    edTxt_message.setText("");
+                }
+            }
+        });
+
         btn_publier.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Gson gson = new Gson();
-                String listPubliTxtJson = prefStockées.getString("clefListePublications","");
-                if (listPubliTxtJson.equals("")){
-                    listePublications = new ArrayList<Publication>();
-                }
-                else{
-                    Publication[] tableauPublicationTemporaire = gson.fromJson(listPubliTxtJson, Publication[].class);
-                    listePublications = new ArrayList<Publication>(Arrays.asList(tableauPublicationTemporaire));
-                }
+
                 String txt_message = edTxt_message.getText().toString();
-                Date currentTime = Calendar.getInstance().getTime();
                 try {
+                    //on récupère la session Twitter en cours
                     final TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
-                    final Intent intent = new ComposerActivity.Builder(currentApp)
-                            .session(session)
-                            .text(txt_message)
-                            .hashtags()
+                    final Intent intent = new ComposerActivity.Builder(currentApp) //on appelle le builder
+                            .session(session) //avec la session en cours
+                            .text(txt_message) //le message de notre choix
+                            .hashtags()//hastags
                             .createIntent();
-                    startActivityForResult(intent,1);
-                    //setResult(1);
-                    //finish();
-                    Publication publicationAdd = new Publication(txt_message,currentTime);
-                    listePublications.add(publicationAdd);
-                    SharedPreferences.Editor prefEditor = prefStockées.edit();
-                    String listePublicationEnJson = gson.toJson(listePublications);
-                    prefEditor.putString("clefListePublications", listePublicationEnJson);
-                    prefEditor.commit();
+                    startActivityForResult(intent, 1);
 
                 } catch (Exception e) {
                     e.printStackTrace();
                     finish();
-                    Toast.makeText(NouvellePublication.this,"Vous devez d'abord être connecté !",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NouvellePublication.this, "Vous devez d'abord être connecté !", Toast.LENGTH_SHORT).show();
                 }
             }
         });

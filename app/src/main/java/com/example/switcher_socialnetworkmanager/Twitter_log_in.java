@@ -33,12 +33,15 @@ public class Twitter_log_in extends AppCompatActivity {
         currentIntent=getIntent();
         currentApp=this;
         super.onCreate(savedInstanceState);
-        TwitterConfig config = new TwitterConfig.Builder(this)
-                .logger(new DefaultLogger(Log.DEBUG))
-                .twitterAuthConfig(new TwitterAuthConfig("FBN7F6TUIVSNgv74kn2eamDbi","Juo5aBRmkPFamzH4pVu3Fe6P2mRQSrl71BS800Nff66ZgtnN4e"))
-                .debug(true)
+
+        TwitterConfig config = new TwitterConfig.Builder(this)//création de la configuration de la session
+                .logger(new DefaultLogger(Log.DEBUG)) //on active l'historique de débug
+                //clé d'API correspondant à notre application
+                .twitterAuthConfig(new TwitterAuthConfig("FBN7F6TUIVSNgv74kn2eamDbi",   "Juo5aBRmkPFamzH4pVu3Fe6P2mRQSrl71BS800Nff66ZgtnN4e"))
+                .debug(true) //on active le débugage
                 .build();
-        Twitter.initialize(config);
+        Twitter.initialize(config); //on itialise le kit avec la configuration précèdement créée
+
         setContentView(R.layout.activity_twitter_log_in);
         loginButton = (TwitterLoginButton) findViewById(R.id.login_button);
         loginButton.setCallback(new Callback<TwitterSession>() {

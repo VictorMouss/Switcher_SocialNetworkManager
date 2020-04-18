@@ -9,9 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Twitter_log_out"></activity>
+        <activity android:name=".Twitter_log_out" />
         <activity android:name=".NouvellePublication" />
         <activity android:name=".Twitter_log_in" />
+        <activity android:name=".AjoutPublication" />
+        <activity android:name=".ListePublications" />
+        <activity android:name=".SupprimerPublication" />
+        <activity android:name=".VoirPublication" />
         <activity android:name=".main_page">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,13 +23,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <receiver
             android:name=".MyResultReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.twitter.sdk.android.tweetcomposer.UPLOAD_SUCCESS"/>
-                <action android:name="com.twitter.sdk.android.tweetcomposer.UPLOAD_FAILURE"/>
-                <action android:name="com.twitter.sdk.android.tweetcomposer.TWEET_COMPOSE_CANCEL"/>
+                <action android:name="com.twitter.sdk.android.tweetcomposer.UPLOAD_SUCCESS" />
+                <action android:name="com.twitter.sdk.android.tweetcomposer.UPLOAD_FAILURE" />
+                <action android:name="com.twitter.sdk.android.tweetcomposer.TWEET_COMPOSE_CANCEL" />
             </intent-filter>
         </receiver>
     </application>
