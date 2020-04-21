@@ -21,7 +21,6 @@ import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.tweetcomposer.ComposerActivity;
 import com.twitter.sdk.android.tweetcomposer.TweetUploadService;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -34,6 +33,7 @@ public class NouvellePublication extends AppCompatActivity {
     EditText edTxt_message;
     AppCompatActivity currentApp;
     public static Long lastTweetId;
+    ArrayList<Publication> listePublications;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +92,33 @@ public class NouvellePublication extends AppCompatActivity {
                     // success
                     final Long tweetId = intentExtras.getLong(TweetUploadService.EXTRA_TWEET_ID);
                     lastTweetId = tweetId;
+
+
+                    SharedPreferences prefsStockees = getSharedPreferences("mesPrefs", MODE_PRIVATE);
+                    Gson gson = new Gson();
+                    String listePublicationTxtJson = prefsStockees.getString("cle_listePublications", "");
+                    if (listePublicationTxtJson.equals("")) {
+                        listePublications = new ArrayList<Publication>();
+                    } else {
+                        Publication[] tableauPublicationsTemporaire = gson.fromJson(listePublicationTxtJson, Publication[].class);
+                        listePublications = new ArrayList<Publication>(Arrays.asList(tableauPublicationsTemporaire));
+                    }
+                    String nom = edTxt_message.getText().toString();
+                    Date currentTime = Calendar.getInstance().getTime();
+                    Publication publicationsAjout = new Publication(nom, currentTime);
+                    listePublications.add(publicationsAjout);
+
+                    /** enregistrement de la liste dans "SharedPreferences" */
+                    // on cree un éditeur de préferences, pour mettre à jour "mesPrefs" :
+                    Editor prefsEditor = prefsStockees.edit();
+                    // on transforme la liste d'étudiant en format json :
+                    String ListeEtudiantsEnJson = gson.toJson(listePublications);
+                    // on envoie la liste (json) dans la clé cle_listeEtudiants de mesPrefs :
+                    prefsEditor.putString("cle_listePublications", ListeEtudiantsEnJson);
+                    prefsEditor.commit(); // on enregistre les préférences
+
+                    /** fin de l'activite, mais en renvoyant un message de type Toast */
+                    Toast.makeText(NouvellePublication.this, "vous avez ajouté la publication : " + nom, Toast.LENGTH_SHORT).show();
                     currentApp.setResult(1);
                     finish();
                 } else if (TweetUploadService.UPLOAD_FAILURE.equals(intent.getAction())) {

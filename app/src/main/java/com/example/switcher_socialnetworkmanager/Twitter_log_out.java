@@ -48,7 +48,9 @@ public class Twitter_log_out extends AppCompatActivity {
                     setResult(1);
                 }
                 else {
-                    Toast.makeText(currentApp, "Vous n'étiez pas connecté à Twitter", Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(currentApp, "Un message", Toast.LENGTH_SHORT).show();
+
                 }
                 finish();
             }

@@ -27,6 +27,13 @@ public class Publication {
         this.tweetId = tweetId;
     }
 
+    public Publication(String textPubli, Date date) {
+        this.textPubli = textPubli;
+        this.imageUri = null;
+        this.date = date;
+        this.tweetId = null;
+    }
+
 
     @Override
     public String toString() {

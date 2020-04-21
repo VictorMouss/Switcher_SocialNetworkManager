@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -28,12 +29,14 @@ public class main_page extends AppCompatActivity implements View.OnClickListener
 
 
     private static final int NUM_PAGES = 3;
+
     Button btn_publi;
     Button btn_settings;
     Button btn_account;
+
     private ViewPager2 viewPager;
-    private FragmentStateAdapter pagerAdapter;
-    Fragment f0;
+    private FragmentStateAdapter pagerAdapter; //on définit le pageAdpter, qu'il faudra définir dans
+    // la class pour les différentes méthodes abstraites de la class FragmentStateAdapter
 
 
     @Override
@@ -46,6 +49,8 @@ public class main_page extends AppCompatActivity implements View.OnClickListener
         pagerAdapter = new ScreenSlidePagerAdapter(this);
         viewPager = findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
+
+
         viewPager.setCurrentItem(1);
         btn_account = findViewById(R.id.btn_account);
         btn_publi = findViewById(R.id.btn_publi);
@@ -133,8 +138,7 @@ public class main_page extends AppCompatActivity implements View.OnClickListener
         public Fragment createFragment(int position) {
             switch (position) {
                 case 0:
-                    f0 = new ScreenSlidePageFragmentConnexion();
-                    return f0;
+                    return new ScreenSlidePageFragmentConnexion();
                 case 1:
                     return new ScreenSlidePageFragmentPubli();
                 case 2:
