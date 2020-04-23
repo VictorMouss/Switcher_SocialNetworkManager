@@ -3,6 +3,7 @@ package com.example.switcher_socialnetworkmanager;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,6 +45,10 @@ public class Twitter_log_out extends AppCompatActivity {
                 TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
                 if (session!=null) {
                     TwitterCore.getInstance().getSessionManager().clearActiveSession();
+                    SharedPreferences sharedPreferences = getSharedPreferences("mesPrefs",MODE_PRIVATE);
+                    SharedPreferences.Editor prefEditor = sharedPreferences.edit();
+                    prefEditor.clear();
+                    prefEditor.commit();
                     Toast.makeText(currentApp, "Vous êtes déconnecté de Twitter", Toast.LENGTH_SHORT).show();
                     setResult(1);
                 }

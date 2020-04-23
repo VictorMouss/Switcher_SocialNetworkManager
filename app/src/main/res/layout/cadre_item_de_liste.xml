@@ -3,39 +3,63 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#090E2B">
 
-    <ImageView
-        android:id="@+id/txt_photo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="304dp"
-        android:layout_marginEnd="10dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@android:mipmap/sym_def_app_icon" />
-
-    <TextView
-        android:id="@+id/txt_message2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <FrameLayout
+        android:id="@+id/FL2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        tools:text="@tools:sample/full_names" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="40dp"
+        android:background="#CEA07F"
+        android:layoutMode="clipBounds" >
 
-    <TextView
-        android:id="@+id/txt_annee"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txt_message2"
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/FL"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
-        tools:text="@tools:sample/lorem" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="42dp"
+        android:background="#1A2353"
+        android:layoutMode="clipBounds">
+
+        <TextView
+            android:id="@+id/txt_dateCrea"
+            android:layout_width="323dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:textColor="#CEA07F"
+            tools:text="@tools:sample/lorem" />
+
+        <TextView
+            android:id="@+id/txt_message_visuPubli"
+            android:layout_width="wrap_content"
+            android:layout_height="89dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="45dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="#FFFFFF"
+            tools:text="@tools:sample/full_names" />
+
+    </FrameLayout>
 
 </RelativeLayout>

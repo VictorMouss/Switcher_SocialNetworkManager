@@ -37,6 +37,9 @@ public class Publication {
 
     @Override
     public String toString() {
-        return "Publication du ";
+        String s = "Publication du "+(date.getDay())+"/"+date.getMonth()+"/"+date.getYear() + " fait à " +
+                date.getHours()+":"+date.getMinutes();
+        return s;
+
     }
 }

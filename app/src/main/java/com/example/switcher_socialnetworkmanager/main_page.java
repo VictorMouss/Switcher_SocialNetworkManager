@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
+
+import com.google.gson.Gson;
+import com.twitter.sdk.android.core.DefaultLogger;
+import com.twitter.sdk.android.core.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterAuthToken;
+import com.twitter.sdk.android.core.TwitterConfig;
+import com.twitter.sdk.android.core.TwitterCore;
+import com.twitter.sdk.android.core.TwitterSession;
 
 import org.w3c.dom.Text;
 
@@ -43,8 +53,29 @@ public class main_page extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        TwitterConfig config = new TwitterConfig.Builder(this)//création de la configuration de la session
+                .logger(new DefaultLogger(Log.DEBUG)) //on active l'historique de débug
+                //clé d'API correspondant à notre application
+                .twitterAuthConfig(new TwitterAuthConfig("FBN7F6TUIVSNgv74kn2eamDbi",   "Juo5aBRmkPFamzH4pVu3Fe6P2mRQSrl71BS800Nff66ZgtnN4e"))
+                .debug(true) //on active le débugage
+                .build();
+        Twitter.initialize(config); //on itialise le kit avec la configuration précèdement créée
+        SharedPreferences sharedPreferences = getSharedPreferences("mesPrefs",MODE_PRIVATE);
+        Gson gson = new Gson();
+        String tokenJson = sharedPreferences.getString("cle_token","");
+        String userIdJson = sharedPreferences.getString("cle_user_id","");
+        String userName = sharedPreferences.getString("clef_user_name","");
+        if (tokenJson!=""){
+            TwitterAuthToken token = gson.fromJson(tokenJson, TwitterAuthToken.class);
+            Long userId = gson.fromJson(userIdJson,Long.class);
+            TwitterSession session = new TwitterSession(token,userId,userName);
+            TwitterCore.getInstance().getSessionManager().setActiveSession(session);
+            ScreenSlidePageFragmentConnexion.etatConnexionTwitter=true;
+        }
+        else {
+            ScreenSlidePageFragmentConnexion.etatConnexionTwitter=false;
+        }
         setContentView(R.layout.bottom_buttons);
-
         // Instantiate a ViewPager2 and a PagerAdapter.
         pagerAdapter = new ScreenSlidePagerAdapter(this);
         viewPager = findViewById(R.id.pager);

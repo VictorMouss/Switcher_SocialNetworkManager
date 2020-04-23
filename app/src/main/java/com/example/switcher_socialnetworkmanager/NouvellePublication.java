@@ -105,6 +105,7 @@ public class NouvellePublication extends AppCompatActivity {
                     }
                     String nom = edTxt_message.getText().toString();
                     Date currentTime = Calendar.getInstance().getTime();
+                    Log.i("Objet visualisé", currentTime + "");
                     Publication publicationsAjout = new Publication(nom, currentTime);
                     listePublications.add(publicationsAjout);
 
@@ -112,9 +113,10 @@ public class NouvellePublication extends AppCompatActivity {
                     // on cree un éditeur de préferences, pour mettre à jour "mesPrefs" :
                     Editor prefsEditor = prefsStockees.edit();
                     // on transforme la liste d'étudiant en format json :
-                    String ListeEtudiantsEnJson = gson.toJson(listePublications);
+                    String ListePublicationsEnJson = gson.toJson(listePublications);
                     // on envoie la liste (json) dans la clé cle_listeEtudiants de mesPrefs :
-                    prefsEditor.putString("cle_listePublications", ListeEtudiantsEnJson);
+                    prefsEditor.putString("cle_listePublications", ListePublicationsEnJson);
+
                     prefsEditor.commit(); // on enregistre les préférences
 
                     /** fin de l'activite, mais en renvoyant un message de type Toast */

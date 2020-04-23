@@ -1,6 +1,7 @@
 package com.example.switcher_socialnetworkmanager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,12 +12,15 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.gson.Gson;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.DefaultLogger;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterAuthToken;
 import com.twitter.sdk.android.core.TwitterConfig;
+import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
@@ -47,8 +51,28 @@ public class Twitter_log_in extends AppCompatActivity {
         loginButton.setCallback(new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> result) {
+
                 Log.i("Login", "Login successful");
                 Toast.makeText(currentApp,"Vous êtes connecté à Twitter",Toast.LENGTH_SHORT).show();
+
+                SharedPreferences sharedPreferences = getSharedPreferences("mesPrefs",MODE_PRIVATE);
+                TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
+                TwitterAuthToken token = session.getAuthToken();
+                Long userId = session.getUserId();
+                String userName = session.getUserName();
+
+                Gson gson = new Gson();
+                String authTokenJson = gson.toJson(token);
+                String userIdJson = gson.toJson(userId);
+
+                SharedPreferences.Editor prefEditor = sharedPreferences.edit();
+
+                prefEditor.putString("cle_token",authTokenJson);
+                prefEditor.putString("cle_user_id",userIdJson);
+                prefEditor.putString("cle_user_name",userName);
+
+                prefEditor.commit();
+
                 setResult(1);
                 finish();
             }

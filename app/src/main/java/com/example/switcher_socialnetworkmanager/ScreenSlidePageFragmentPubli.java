@@ -37,8 +37,6 @@ public class ScreenSlidePageFragmentPubli extends Fragment implements View.OnCli
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.publication_page, container, false);
         lv_publication = myView.findViewById(R.id.lv_publications);
-        SharedPreferences prefsStockees = getActivity().getSharedPreferences("mesPrefs", Context.MODE_PRIVATE);
-        prefsStockees.edit().remove("cle_listePublications");
         refreshPublications();
         btn_new_publi = myView.findViewById(R.id.btn_new_publi);
 
@@ -48,6 +46,7 @@ public class ScreenSlidePageFragmentPubli extends Fragment implements View.OnCli
                 try {
                     final TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
                     if (session!=null) {
+
                         Intent intent = new Intent(getActivity(), NouvellePublication.class);
                         startActivityForResult(intent, 1);
                     }
@@ -77,7 +76,8 @@ public class ScreenSlidePageFragmentPubli extends Fragment implements View.OnCli
     }
 
     public void refreshPublications() {
-        SharedPreferences prefsStockees = getActivity().getSharedPreferences("mesPrefs", Context.MODE_PRIVATE);
+        prefsStockees = getActivity().getSharedPreferences("mesPrefs", Context.MODE_PRIVATE);
+
         Gson gson = new Gson();
         String listeEtudiantTxtJson = prefsStockees.getString("cle_listePublications", "");
         if (listeEtudiantTxtJson.equals("")) {
@@ -110,30 +110,28 @@ public class ScreenSlidePageFragmentPubli extends Fragment implements View.OnCli
                     itemView = LayoutInflater.from(getActivity()).inflate(R.layout.cadre_item_de_liste, null);
                 }
 
-                TextView txt_message2 = (TextView) itemView.findViewById(R.id.txt_message2);
+                TextView txt_message2 = (TextView) itemView.findViewById(R.id.txt_message_visuPubli);
+                TextView txtDateCrea = itemView.findViewById(R.id.txt_dateCrea);
                 Publication publicationsAafficher = (Publication) listePublications.get(itemIndex);
 
                 final String textePublication = publicationsAafficher.textPubli;
-                txt_message2.setText(textePublication);
+                final String dateCréation = publicationsAafficher.toString();
 
+                txt_message2.setText(textePublication);
+                txtDateCrea.setText(dateCréation);
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
                         Toast.makeText(getActivity(), "vous avez cliqué sur la publication" + textePublication, Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getActivity(), VoirPublication.class);
-                        intent.putExtra("indexPublicationClique", itemIndex);
-                        startActivity(intent);
+                       intent.putExtra("indexPublicationClique", itemIndex);
+                        startActivityForResult(intent,5);
 
 
-                        /*Publications publicationsSupprime =  (Publications) getItem(itemIndex);
-                        // on affiche un petit message de type Toast, qui annonce l'étudaint supprimé
-                        Toast.makeText(SupprimerPublication.this, "vous avez supprimé la publication" + publicationsSupprime.nom, Toast.LENGTH_SHORT).show();
-                        // on enleve l'étudiant de la liste;
-                        listestudiants.remove(publicationsSupprime);
-                        /* important : on annonce a la listview que la liste d'étudiants a partir de laquelle
-                        elle avait été construire a changé. ca va permettre de raffraichir l'affichage */
-                        notifyDataSetChanged();
+                        //Publication publicationSupprime =  (Publication) getItem(itemIndex);
+                        //listePublications.remove(publicationSupprime);
+                       // notifyDataSetChanged();
                     }
                 });
                 return itemView;
