@@ -1,19 +1,13 @@
 package com.example.switcher_socialnetworkmanager;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -29,8 +23,6 @@ import com.twitter.sdk.android.core.TwitterAuthToken;
 import com.twitter.sdk.android.core.TwitterConfig;
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterSession;
-
-import org.w3c.dom.Text;
 
 public class main_page extends AppCompatActivity implements View.OnClickListener {
     /**
@@ -65,15 +57,18 @@ public class main_page extends AppCompatActivity implements View.OnClickListener
         String tokenJson = sharedPreferences.getString("cle_token","");
         String userIdJson = sharedPreferences.getString("cle_user_id","");
         String userName = sharedPreferences.getString("clef_user_name","");
+        int currentPage;
         if (tokenJson!=""){
             TwitterAuthToken token = gson.fromJson(tokenJson, TwitterAuthToken.class);
             Long userId = gson.fromJson(userIdJson,Long.class);
             TwitterSession session = new TwitterSession(token,userId,userName);
             TwitterCore.getInstance().getSessionManager().setActiveSession(session);
             ScreenSlidePageFragmentConnexion.etatConnexionTwitter=true;
+            currentPage = 1 ;
         }
         else {
             ScreenSlidePageFragmentConnexion.etatConnexionTwitter=false;
+            currentPage = 0;
         }
         setContentView(R.layout.bottom_buttons);
         // Instantiate a ViewPager2 and a PagerAdapter.
@@ -82,7 +77,7 @@ public class main_page extends AppCompatActivity implements View.OnClickListener
         viewPager.setAdapter(pagerAdapter);
 
 
-        viewPager.setCurrentItem(1);
+        viewPager.setCurrentItem(currentPage);
         btn_account = findViewById(R.id.btn_account);
         btn_publi = findViewById(R.id.btn_publi);
         btn_settings = findViewById(R.id.btn_settings);
@@ -123,13 +118,6 @@ public class main_page extends AppCompatActivity implements View.OnClickListener
             }
         });
 
-        BroadcastReceiver broadcast_receiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-
-            }
-        };
-        registerReceiver(broadcast_receiver, new IntentFilter("finish"));
     }
 
     @Override

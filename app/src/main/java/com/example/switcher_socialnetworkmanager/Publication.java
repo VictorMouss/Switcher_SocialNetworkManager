@@ -2,8 +2,6 @@ package com.example.switcher_socialnetworkmanager;
 
 import android.net.Uri;
 
-import androidx.annotation.NonNull;
-
 import java.util.Date;
 
 public class Publication {

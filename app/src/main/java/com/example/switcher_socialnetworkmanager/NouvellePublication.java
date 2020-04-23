@@ -66,8 +66,10 @@ public class NouvellePublication extends AppCompatActivity {
                             .session(session) //avec la session en cours
                             .text(txt_message) //le message de notre choix
                             .hashtags()//hastags
+                            .darkTheme()
                             .createIntent();
                     startActivityForResult(intent, 1);
+
 
                 } catch (Exception e) {
                     e.printStackTrace();

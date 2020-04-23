@@ -1,8 +1,5 @@
 package com.example.switcher_socialnetworkmanager;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,10 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterSession;
-
-import java.net.CookieManager;
 
 public class Twitter_log_out extends AppCompatActivity {
 
