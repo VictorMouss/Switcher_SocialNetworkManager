@@ -36,13 +36,11 @@
 
             <Button
                 android:id="@+id/btn_about"
+                android:text="@string/str_about"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_style"
                 android:backgroundTint="#E605123C"
-                android:backgroundTintMode="screen"
-                android:lineSpacingExtra="14sp"
-                android:text="@string/str_about"
+                android:backgroundTintMode="src_atop"
                 android:textAlignment="viewStart"
                 android:textColor="#FFFFFF" />
 
@@ -69,8 +67,8 @@
             <Button
                 android:id="@+id/btn_disconnect"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:background="@drawable/background_blue"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#E605123C"
                 android:backgroundTintMode="src_atop"
                 android:text="@string/str_disconnect"
                 android:textAlignment="viewStart"
