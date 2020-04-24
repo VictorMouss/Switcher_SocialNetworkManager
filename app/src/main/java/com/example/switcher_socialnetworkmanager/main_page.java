@@ -37,8 +37,6 @@ public class main_page extends AppCompatActivity implements View.OnClickListener
     Button btn_account;
 
     private ViewPager2 viewPager;
-    private FragmentStateAdapter pagerAdapter; //on définit le pageAdpter, qu'il faudra définir dans
-    // la class pour les différentes méthodes abstraites de la class FragmentStateAdapter
 
 
     @Override
@@ -58,7 +56,7 @@ public class main_page extends AppCompatActivity implements View.OnClickListener
         String userIdJson = sharedPreferences.getString("cle_user_id","");
         String userName = sharedPreferences.getString("clef_user_name","");
         int currentPage;
-        if (tokenJson!=""){
+        if (!tokenJson.equals("")){
             TwitterAuthToken token = gson.fromJson(tokenJson, TwitterAuthToken.class);
             Long userId = gson.fromJson(userIdJson,Long.class);
             TwitterSession session = new TwitterSession(token,userId,userName);
@@ -72,7 +70,8 @@ public class main_page extends AppCompatActivity implements View.OnClickListener
         }
         setContentView(R.layout.bottom_buttons);
         // Instantiate a ViewPager2 and a PagerAdapter.
-        pagerAdapter = new ScreenSlidePagerAdapter(this);
+        //on définit le pageAdpter et le ViewPager2
+        FragmentStateAdapter pagerAdapter = new ScreenSlidePagerAdapter(this);
         viewPager = findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
 
@@ -149,7 +148,7 @@ public class main_page extends AppCompatActivity implements View.OnClickListener
     private class ScreenSlidePagerAdapter extends FragmentStateAdapter {
 
 
-        public ScreenSlidePagerAdapter(FragmentActivity fa) {
+        ScreenSlidePagerAdapter(FragmentActivity fa) {
             super(fa);
         }
 
@@ -202,8 +201,6 @@ public class main_page extends AppCompatActivity implements View.OnClickListener
 
 
             }
-            String currentItemToString = Integer.toString(viewPager.getCurrentItem());
-            //Log.i("Current item displayed", currentItemToString);
             return NUM_PAGES;
         }
 

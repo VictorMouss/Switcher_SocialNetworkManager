@@ -17,5 +17,9 @@
     <string name="str_retour">Retour</string>
     <string name="str_publier">Publier</string>
     <string name="str_logout">Se déconnecter</string>
+    <string name="str_about_text"> Cette application a été developpé dans le cadre d\'un projet
+        étudiant de l\'EPF Montpellier.
+        \nRéalisé par Charlotte Blanc, Damien Ferrero, Victor Moussally et Paul Saillard.
+        \n\n\n "The Switcher : Social Network Manager", tous droits réservés"</string>
 
 </resources>

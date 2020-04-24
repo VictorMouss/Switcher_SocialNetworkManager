@@ -45,7 +45,7 @@ public class ScreenSlidePageFragmentPubli extends Fragment implements View.OnCli
             public void onClick(View v) {
                 try {
                     final TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
-                    if (session!=null) {
+                    if (session != null) {
 
                         Intent intent = new Intent(getActivity(), NouvellePublication.class);
                         startActivityForResult(intent, 1);
@@ -125,13 +125,13 @@ public class ScreenSlidePageFragmentPubli extends Fragment implements View.OnCli
 
                         Toast.makeText(getActivity(), "vous avez cliqué sur la publication" + textePublication, Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getActivity(), VoirPublication.class);
-                       intent.putExtra("indexPublicationClique", itemIndex);
-                        startActivityForResult(intent,5);
+                        intent.putExtra("indexPublicationClique", itemIndex);
+                        startActivityForResult(intent, 5);
 
 
                         //Publication publicationSupprime =  (Publication) getItem(itemIndex);
                         //listePublications.remove(publicationSupprime);
-                       // notifyDataSetChanged();
+                        // notifyDataSetChanged();
                     }
                 });
                 return itemView;
