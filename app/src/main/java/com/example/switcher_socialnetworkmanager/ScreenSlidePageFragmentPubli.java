@@ -1,6 +1,8 @@
 package com.example.switcher_socialnetworkmanager;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -78,7 +80,7 @@ public class ScreenSlidePageFragmentPubli extends Fragment implements View.OnCli
     public void refreshPublications() {
         prefsStockees = getActivity().getSharedPreferences("mesPrefs", Context.MODE_PRIVATE);
 
-        Gson gson = new Gson();
+        final Gson gson = new Gson();
         String listeEtudiantTxtJson = prefsStockees.getString("cle_listePublications", "");
         if (listeEtudiantTxtJson.equals("")) {
             listePublications = new ArrayList<Publication>();
@@ -123,10 +125,35 @@ public class ScreenSlidePageFragmentPubli extends Fragment implements View.OnCli
                     @Override
                     public void onClick(View view) {
 
-                        Toast.makeText(getActivity(), "vous avez cliqué sur la publication" + textePublication, Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getActivity(), VoirPublication.class);
-                        intent.putExtra("indexPublicationClique", itemIndex);
-                        startActivityForResult(intent, 5);
+                        new AlertDialog.Builder(getContext()).setTitle("Supprimer la publication")
+                                .setMessage("Voulez-vous supprimer la publication ?")
+                                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Publication publicationSupprime =  (Publication) getItem(itemIndex);
+                                        listePublications.remove(publicationSupprime);
+                                        notifyDataSetChanged();
+                                        SharedPreferences.Editor prefsEditor = prefsStockees.edit();
+                                        // on transforme la liste d'étudiant en format json :
+                                        String ListePublicationsEnJson = gson.toJson(listePublications);
+                                        // on envoie la liste (json) dans la clé cle_listeEtudiants de mesPrefs :
+                                        prefsEditor.putString("cle_listePublications", ListePublicationsEnJson);
+
+                                        prefsEditor.commit(); // on enregistre les préférences
+                                    }
+                                })
+                                .setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                })
+                                .show();
+
+                        //Toast.makeText(getActivity(), "vous avez cliqué sur la publication" + textePublication, Toast.LENGTH_SHORT).show();
+                        //Intent intent = new Intent(getActivity(), VoirPublication.class);
+                        //intent.putExtra("indexPublicationClique", itemIndex);
+                        //startActivityForResult(intent, 5);
 
 
                         //Publication publicationSupprime =  (Publication) getItem(itemIndex);

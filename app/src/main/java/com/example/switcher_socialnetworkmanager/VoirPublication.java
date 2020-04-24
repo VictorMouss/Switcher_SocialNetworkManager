@@ -32,14 +32,14 @@ public class VoirPublication extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voir_publication);
         Intent intent = getIntent();
-        final int indiceEtudiant = intent.getIntExtra("indexPublicationClique", -1);
+        final int indicePublication = intent.getIntExtra("indexPublicationClique", -1);
 
         final SharedPreferences prefsStockees = getSharedPreferences("mesPrefs", MODE_PRIVATE);
         final Gson gson = new Gson();
         final String listePublicationTxtJson = prefsStockees.getString("cle_listePublications", "");
         Publication[] tableauPublicationsTemporaire = gson.fromJson(listePublicationTxtJson, Publication[].class);
 
-        Publication publicationsVisualise = tableauPublicationsTemporaire[indiceEtudiant];
+        Publication publicationsVisualise = tableauPublicationsTemporaire[indicePublication];
         listePublications = new ArrayList<Publication>(Arrays.asList(tableauPublicationsTemporaire));
 
         txt_message = findViewById(R.id.txt_message);
@@ -65,7 +65,7 @@ public class VoirPublication extends AppCompatActivity {
         boutonSupprimerPubli.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Publication publiSupp = (Publication) listePublications.get(indiceEtudiant);
+                Publication publiSupp = (Publication) listePublications.get(indicePublication);
                 listePublications.remove(publiSupp);
                 SharedPreferences.Editor prefsEditor = prefsStockees.edit();
                 String ListePublicationsEnJson = gson.toJson(listePublications);

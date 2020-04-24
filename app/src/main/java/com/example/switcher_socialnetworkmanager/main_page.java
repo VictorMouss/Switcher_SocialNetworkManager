@@ -39,6 +39,7 @@ public class main_page extends AppCompatActivity implements View.OnClickListener
     private ViewPager2 viewPager;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,6 +117,10 @@ public class main_page extends AppCompatActivity implements View.OnClickListener
                 btn_settings.setForeground(getResources().getDrawable(R.drawable.bouton_settings_small_down));
             }
         });
+
+        btn_account.setForeground(getResources().getDrawable(R.drawable.bouton_account_small_down));
+        btn_publi.setForeground(getResources().getDrawable(R.drawable.bouton_publi_small));
+        btn_settings.setForeground(getResources().getDrawable(R.drawable.bouton_settings_small));
 
     }
 
