@@ -24,24 +24,23 @@ import com.twitter.sdk.android.core.TwitterConfig;
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterSession;
 
-public class main_page extends AppCompatActivity implements View.OnClickListener {
-    /**
-     * The number of pages (wizard steps) to show in this demo.
-     */
+public class main_page extends AppCompatActivity {
+    /* Page principale, contenant les boutons de navigation en bas ainsi que le widget ViewPager2,
+     * permettant de faire un défilement de Fragment avec glissement */
 
+    private static final int NUM_PAGES = 3; //Nombre de pages, nécessaire pour le ViewPager2
 
-    private static final int NUM_PAGES = 3;
-
+    //Boutons de navigation entre les pages, en bas
     Button btn_publi;
     Button btn_settings;
     Button btn_account;
 
-    private ViewPager2 viewPager;
+    private ViewPager2 viewPager; //Widget ViewPager2
 
-
+    //Requires car la méthode setForeground nécessite une version d'API légèrement supérieure à celle définie dans le manifest
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) { //on create de l'Activity
         super.onCreate(savedInstanceState);
         TwitterConfig config = new TwitterConfig.Builder(this)//création de la configuration de la session
                 .logger(new DefaultLogger(Log.DEBUG)) //on active l'historique de débug
@@ -50,130 +49,121 @@ public class main_page extends AppCompatActivity implements View.OnClickListener
                 .debug(true) //on active le débugage
                 .build();
         Twitter.initialize(config); //on itialise le kit avec la configuration précèdement créée
-        SharedPreferences sharedPreferences = getSharedPreferences("mesPrefs", MODE_PRIVATE);
-        Gson gson = new Gson();
+
+        /*Stockage de la session dans les SharedPreferences*/
+        SharedPreferences sharedPreferences = getSharedPreferences("mesPrefs", MODE_PRIVATE); //on récupère les SharedPreferences
+        Gson gson = new Gson(); //Création du Gson
+        /*Récupération du Token de connexion (en Json), userID (en Json) et userName*/
         String tokenJson = sharedPreferences.getString("cle_token", "");
         String userIdJson = sharedPreferences.getString("cle_user_id", "");
         String userName = sharedPreferences.getString("clef_user_name", "");
-        int currentPage;
-        if (!tokenJson.equals("")) {
+        int currentPage; //page actuelle, permet de faire changer la page actuelle au lancement de
+        // l'application en fonction de la connexion à Twitter, ou non
+
+        if (!tokenJson.equals("")) { //S'il y a déjà une session twitter dans les SharedPreferences
+            /* On transforme en String le token de session l'userId grâce au Gson*/
             TwitterAuthToken token = gson.fromJson(tokenJson, TwitterAuthToken.class);
             Long userId = gson.fromJson(userIdJson, Long.class);
-            TwitterSession session = new TwitterSession(token, userId, userName);
-            TwitterCore.getInstance().getSessionManager().setActiveSession(session);
-            ScreenSlidePageFragmentConnexion.etatConnexionTwitter = true;
-            currentPage = 1;
-        } else {
-            ScreenSlidePageFragmentConnexion.etatConnexionTwitter = false;
-            currentPage = 0;
+            TwitterSession session = new TwitterSession(token, userId, userName); //on recrée la session
+            TwitterCore.getInstance().getSessionManager().setActiveSession(session);//on met la session actuelle à la session précédemment créée
+            ScreenSlidePageFragmentConnexion.etatConnexionTwitter = true; //on change l'attribut statique
+            currentPage = 1; //si la connexion a déjà était faite, on met l'utilisateur sur la page 1, permettant de faire une nouvelle pubication
+        } else { //S'il n'y a pas de session Twitter existante dans les SharedPreferences
+            ScreenSlidePageFragmentConnexion.etatConnexionTwitter = false;//on change l'attribut statique
+            currentPage = 0; //on met l(utilisateur sur la page 0, permettant la connexion
         }
-        setContentView(R.layout.bottom_buttons);
-        // Instantiate a ViewPager2 and a PagerAdapter.
-        //on définit le pageAdpter et le ViewPager2
+
+        setContentView(R.layout.bottom_buttons);//layout
+
+        /*on définit le pagerAdpter et le ViewPager2 */
         FragmentStateAdapter pagerAdapter = new ScreenSlidePagerAdapter(this);
         viewPager = findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
 
 
-        viewPager.setCurrentItem(currentPage);
+        viewPager.setCurrentItem(currentPage); //on met la page actuelle définie précédement
+        //On récupère les boutons de navigation
         btn_account = findViewById(R.id.btn_account);
         btn_publi = findViewById(R.id.btn_publi);
         btn_settings = findViewById(R.id.btn_settings);
 
+        /* onCLickListenner des boutons de navigation : en fonction du bouton cliqué, on change
+        le currentItem du ViewPager2 */
+
         btn_account.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
-                Log.i("Bouton", "Btn_account cliqué");
                 viewPager.setCurrentItem(0);
-                btn_account.setForeground(getResources().getDrawable(R.drawable.bouton_account_small_down));
-                btn_publi.setForeground(getResources().getDrawable(R.drawable.bouton_publi_small));
-                btn_settings.setForeground(getResources().getDrawable(R.drawable.bouton_settings_small));
             }
         });
 
         btn_publi.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
-                Log.i("Bouton", "Btn_publi cliqué");
                 viewPager.setCurrentItem(1);
-                btn_account.setForeground(getResources().getDrawable(R.drawable.bouton_account_small));
-                btn_publi.setForeground(getResources().getDrawable(R.drawable.bouton_publi_small_down));
-                btn_settings.setForeground(getResources().getDrawable(R.drawable.bouton_settings_small));
             }
         });
 
         btn_settings.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
-                Log.i("Bouton", "Btn_settings cliqué");
                 viewPager.setCurrentItem(2);
-                btn_account.setForeground(getResources().getDrawable(R.drawable.bouton_account_small));
-                btn_publi.setForeground(getResources().getDrawable(R.drawable.bouton_publi_small));
-                btn_settings.setForeground(getResources().getDrawable(R.drawable.bouton_settings_small_down));
             }
         });
 
-        btn_account.setForeground(getResources().getDrawable(R.drawable.bouton_account_small_down));
-        btn_publi.setForeground(getResources().getDrawable(R.drawable.bouton_publi_small));
-        btn_settings.setForeground(getResources().getDrawable(R.drawable.bouton_settings_small));
-
     }
 
+    //Override de l'action effctuée lorsque le bouton BACK est appuyé (bouton noir présents sur les appareils Android)
     @Override
     public void onBackPressed() {
         Log.i("Back", "BackPressed");
 
         if (viewPager.getCurrentItem() == 1) {
-            // If the user is currently looking at the first step, allow the system to handle the
-            // Back button. This calls finish() on this activity and pops the back stack.
+            // Si l'utilisateur est sur la page principale (page de publication) alors on effectue
+            // l'action "normale", via le super de la méthode
             super.onBackPressed();
         } else if (viewPager.getCurrentItem() == 0) {
-            // Otherwise, select the previous step.
+            // Sinon, en fonction de la page, on revient sur la page principale (la page suivante).
             viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
         } else {
-            // Otherwise, select the previous step.
+            // Sinon, en fonction de la page, on revient sur la page principale (la page précédente).
             viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
 
         }
     }
 
-    @Override
-    public void onClick(View v) {
-    }
+    /*On va maintenant créé notre PagerAdapter, pour effectuer les actions de notre choix en
+    fonction du glissement sur l'écran */
 
-    /**
-     * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
-     * sequence.
-     */
-    private class ScreenSlidePagerAdapter extends FragmentStateAdapter {
+    private class ScreenSlidePagerAdapter extends FragmentStateAdapter { //création de la sous-classe
 
-
-        ScreenSlidePagerAdapter(FragmentActivity fa) {
-            super(fa);
+        ScreenSlidePagerAdapter(FragmentActivity fa) { //constructeur
+            super(fa); //appel du super
         }
 
         @Override
-        public Fragment createFragment(int position) {
-            switch (position) {
-                case 0:
+        public Fragment createFragment(int position) { //méthode créant les fragments en fonction de la position de la page
+            switch (position) { //en fonction de l'indice de la page créée :
+                case 0: //la page 0 est la page de connexion
                     return new ScreenSlidePageFragmentConnexion();
-                case 1:
+                case 1://la page 1 est la page de publication
                     return new ScreenSlidePageFragmentPubli();
-                case 2:
-                default:
+                case 2://la page 2 est la page de paramètres
+                default://ici default permet d'être sûr d'avoir un return
                     return new ScreenSlidePageFragmentParametres();
             }
-
         }
 
+        //Requires car la méthode setForeground nécessite une version d'API légèrement supérieure à celle définie dans le manifest
         @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
-        public int getItemCount() {
-            int positionActuelle = viewPager.getCurrentItem();
-            switch (positionActuelle) {
+        public int getItemCount() { //cette méthode permet d'avoir le nombre de pages existantes,
+            //nous nous en servirons pour changer les icones des boutons en fonction de la page actuelle
+            int positionActuelle = viewPager.getCurrentItem(); //récupération de la page actuellement affichée
+            switch (positionActuelle) { //en fonction de la page affichée, on change les icones des boutons de navigation
+                //on doit gérer les erreurs lancées par les méthodes setForeGround, qui arrivent
+                // lors de l'éxécution de la méthode la première fois, lorsque que les boutons
+                // ne sont pas définie (pas d'actions particulières dans le catch)
                 case 0:
                     try {
                         btn_account.setForeground(getResources().getDrawable(R.drawable.bouton_account_small_down));
@@ -201,18 +191,9 @@ public class main_page extends AppCompatActivity implements View.OnClickListener
                         e.printStackTrace();
                     }
                     break;
-
-
             }
-            return NUM_PAGES;
+            return NUM_PAGES; //on return l'attribut statique (but premier de la méthode !)
         }
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        //Log.i("Activity Result", "Back on main activity");
     }
 
 
