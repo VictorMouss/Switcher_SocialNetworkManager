@@ -43,7 +43,6 @@ public class main_page extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         TwitterConfig config = new TwitterConfig.Builder(this)//création de la configuration de la session
                 .logger(new DefaultLogger(Log.DEBUG)) //on active l'historique de débug
                 //clé d'API correspondant à notre application
