@@ -1,18 +1,19 @@
 package com.example.switcher_socialnetworkmanager;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
+
 import com.google.gson.Gson;
 import com.twitter.sdk.android.core.DefaultLogger;
 import com.twitter.sdk.android.core.Twitter;
@@ -22,11 +23,12 @@ import com.twitter.sdk.android.core.TwitterConfig;
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterSession;
 
+
 public class main_page extends AppCompatActivity {
     /*
-    * Page principale, contenant les boutons de navigation en bas ainsi que le widget ViewPager2,
-    * permettant de faire un défilement de Fragment avec glissement
-    */
+     * Page principale, contenant les boutons de navigation en bas ainsi que le widget ViewPager2,
+     * permettant de faire un défilement de Fragment avec glissement
+     */
 
     private static final int NUM_PAGES = 3; //Nombre de pages, nécessaire pour le ViewPager2
 

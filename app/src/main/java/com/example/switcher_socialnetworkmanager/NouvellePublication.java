@@ -14,12 +14,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.gson.Gson;
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.tweetcomposer.ComposerActivity;
 import com.twitter.sdk.android.tweetcomposer.TweetUploadService;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -27,7 +30,7 @@ import java.util.Date;
 
 public class NouvellePublication extends AppCompatActivity {
     /*
-    * Cette Activity est ouverte pour permettre l'écriture d'une nouvelle publication
+     * Cette Activity est ouverte pour permettre l'écriture d'une nouvelle publication
      */
     //Attributs de l'Activity
     Button btn_publier; //Publier
@@ -61,7 +64,8 @@ public class NouvellePublication extends AppCompatActivity {
             }
         });
 
-        edTxt_message.setOnEditorActionListener(new TextView.OnEditorActionListener() {//lorsque l'on clique sur le bouton valider du clavier virtuel
+        // lorsque l'on clique sur le bouton valider du clavier virtuel
+        edTxt_message.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 String txt_message = edTxt_message.getText().toString();

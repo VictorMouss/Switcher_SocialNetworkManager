@@ -78,7 +78,7 @@ public class Twitter_log_in extends AppCompatActivity {
             @Override
             public void failure(TwitterException exception) {
                 Log.i("Login", "Login not successful");
-                setResult(2);
+                setResult(0);
             }
         });
 

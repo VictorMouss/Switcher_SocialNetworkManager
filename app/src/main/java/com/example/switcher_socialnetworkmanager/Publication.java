@@ -1,15 +1,20 @@
 package com.example.switcher_socialnetworkmanager;
 
 import android.net.Uri;
+
 import java.util.Date;
 
 public class Publication {
+    //Classe Pulication, correspondant à une publication effectuée
+    /* Attributs */
+    public String textPubli; //Message de la publication
+    public Uri imageUri;//Image de la publication
+    public Date date;//Date de la publi
+    public Long tweetId; //ID du Tweet
 
-    public String textPubli;
-    public Uri imageUri;
-    public Date date;
-    public Long tweetId;
-
+    /*
+    Les différents constructeurs, en fonction des paramètres
+     */
     public Publication(String textPubli, Uri imageUri, Date date, Long tweetId) {
         this.textPubli = textPubli;
         this.imageUri = imageUri;
@@ -33,9 +38,9 @@ public class Publication {
 
 
     @Override
-    public String toString() {
-        String s = "Publication du "+(date.getDay())+"/"+date.getMonth()+"/"+date.getYear() + " fait à " +
-                date.getHours()+":"+date.getMinutes();
+    public String toString() { //méthode toString, pour récupèrer quelques informations sur la publication
+        String s = "Publication du " + (date.getDay()) + "/" + date.getMonth() + "/" + date.getYear() + " fait à " +
+                date.getHours() + ":" + date.getMinutes();
         return s;
 
     }
