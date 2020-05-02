@@ -47,7 +47,7 @@ public class Twitter_log_in extends AppCompatActivity {
         Twitter.initialize(config); //on itialise le kit avec la configuration précèdement créée
 
         setContentView(R.layout.activity_twitter_log_in);
-        loginButton = (TwitterLoginButton) findViewById(R.id.login_button);
+        loginButton = findViewById(R.id.login_button);
         loginButton.setCallback(new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> result) {

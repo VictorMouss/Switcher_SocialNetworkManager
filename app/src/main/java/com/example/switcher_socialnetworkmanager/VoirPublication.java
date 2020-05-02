@@ -47,9 +47,9 @@ public class VoirPublication extends AppCompatActivity {
 
         txt_message.setText(publicationsVisualise.textPubli);
         Log.i("Objet visualisé", publicationsVisualise.date+"");
-        String dateCréation = Integer.toString(publicationsVisualise.date.getHours())+"h";
-        dateCréation = dateCréation + Integer.toString(publicationsVisualise.date.getMinutes())+"m";
-        dateCréation = dateCréation + Integer.toString(publicationsVisualise.date.getSeconds())+"s";
+        String dateCréation = publicationsVisualise.date.getHours() +"h";
+        dateCréation = dateCréation + publicationsVisualise.date.getMinutes() +"m";
+        dateCréation = dateCréation + publicationsVisualise.date.getSeconds() +"s";
         txtDateCrea.setText(dateCréation);
 
         boutonRetour = findViewById(R.id.bouton_retour);
@@ -65,7 +65,7 @@ public class VoirPublication extends AppCompatActivity {
         boutonSupprimerPubli.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Publication publiSupp = (Publication) listePublications.get(indicePublication);
+                Publication publiSupp = listePublications.get(indicePublication);
                 listePublications.remove(publiSupp);
                 SharedPreferences.Editor prefsEditor = prefsStockees.edit();
                 String ListePublicationsEnJson = gson.toJson(listePublications);

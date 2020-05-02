@@ -76,7 +76,7 @@ public class ScreenSlidePageFragmentPubli extends Fragment implements View.OnCli
         Log.i("Activity Result", "Activity result OK. Request code : " + requestCode + " - Result code : " + resultCode);
         if (requestCode == resultCode) {
             Long lastTweetId = NouvellePublication.lastTweetId;
-            Log.i("Activity Result", "last tweet id : " + Long.toString(lastTweetId));
+            Log.i("Activity Result", "last tweet id : " + lastTweetId);
         }
         refreshPublications();
     }
@@ -116,9 +116,9 @@ public class ScreenSlidePageFragmentPubli extends Fragment implements View.OnCli
                     itemView = LayoutInflater.from(getActivity()).inflate(R.layout.cadre_item_de_liste, null);
                 }
 
-                TextView txt_message2 = (TextView) itemView.findViewById(R.id.txt_message_visuPubli);
+                TextView txt_message2 = itemView.findViewById(R.id.txt_message_visuPubli);
                 TextView txtDateCrea = itemView.findViewById(R.id.txt_dateCrea);
-                Publication publicationsAafficher = (Publication) listePublications.get(itemIndex);
+                Publication publicationsAafficher = listePublications.get(itemIndex);
 
                 final String textePublication = publicationsAafficher.textPubli;
                 final String dateCréation = publicationsAafficher.toString();
