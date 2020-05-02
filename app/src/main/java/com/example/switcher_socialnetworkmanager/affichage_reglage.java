@@ -1,7 +1,6 @@
 package com.example.switcher_socialnetworkmanager;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,7 +8,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class affichage_reglage extends AppCompatActivity {
-    /* Activity adaptative des réglages - Boutons "A propos", "Nous contacter", "Signaler un problème" */
+    /*
+    * Activity adaptative des réglages - Boutons "A propos", "Nous contacter", "Signaler un problème"
+    */
 
     //Attributs utilisés dans les méthodes de l'Activity
     Button btn_retour; //Bouton pour revenir sur la page des réglages
@@ -58,7 +59,7 @@ public class affichage_reglage extends AppCompatActivity {
                 txtTopBar.setText(getString(R.string.str_signal_prob_short));//On change le label
                 btn_send.setText(getString(R.string.str_signal_prob_short));//On change le texte du bouton
 
-                //On rend le bouton, le texte du message et le label de descritpions visibles
+                //On rend le bouton, le texte du message et le label de descritpion visibles
                 txt_email.setVisibility(View.VISIBLE);
                 txt_labelActivity.setVisibility(View.VISIBLE);
                 btn_send.setVisibility(View.VISIBLE);

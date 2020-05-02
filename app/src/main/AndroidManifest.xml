@@ -13,7 +13,6 @@
         <activity android:name=".Twitter_log_out" />
         <activity android:name=".NouvellePublication" />
         <activity android:name=".Twitter_log_in" />
-        <activity android:name=".VoirPublication" />
         <activity android:name=".main_page">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
