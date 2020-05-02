@@ -43,37 +43,57 @@ public class affichage_reglage extends AppCompatActivity {
         txt_whatprob.setVisibility(View.INVISIBLE);
         btn_signal = findViewById(R.id.btn_signal);
 
-        btn_signal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String txt_prob = txt_email.getText().toString();
-                Date date = Calendar.getInstance().getTime();
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                txt_prob = "Problème technique signalé. "+ "\n"+"\n"+"Descritpion du problème : "
-                        + txt_prob+"\n"+"\n"+"Description suplémentaire du problème : ";
-                intent.setType("message/rfc822");
-                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"service.technique@switcher.com"});
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Problème technique");
-                intent.putExtra(Intent.EXTRA_TEXT, txt_prob);
-                startActivity(intent);
-            }
-        });
 
         btn_signal.setVisibility(View.INVISIBLE);
 
-        switch (indiceBoutonClique){
-            case 0 :
+        switch (indiceBoutonClique) {
+            case 0:
                 txtTopBar.setText(getString(R.string.str_about));
                 txtAffichageReglage.setText(getString(R.string.str_about_text));
                 break;
-            case 1 :
-                txtTopBar.setText(getString(R.string.str_signal_prob));
+            case 1:
+                txtTopBar.setText(getString(R.string.str_signal_prob_short));
+                btn_signal.setText(getString(R.string.str_signal_prob_short));
                 txt_email.setVisibility(View.VISIBLE);
                 txt_whatprob.setVisibility(View.VISIBLE);
                 btn_signal.setVisibility(View.VISIBLE);
+                btn_signal.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String txt_prob = txt_email.getText().toString();
+                        Date date = Calendar.getInstance().getTime();
+                        Intent intent = new Intent(Intent.ACTION_SEND);
+                        txt_prob = "Problème technique signalé. " + "\n" + "\n" + "Descritpion du problème : "
+                                + txt_prob + "\n" + "\n" + "Description suplémentaire du problème : ";
+                        intent.setType("message/rfc822");
+                        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"service.technique@switcher.com"});
+                        intent.putExtra(Intent.EXTRA_SUBJECT, "Problème technique");
+                        intent.putExtra(Intent.EXTRA_TEXT, txt_prob);
+                        startActivity(intent);
+                    }
+                });
                 break;
-            case 2 :
+            case 2:
                 txtTopBar.setText(getString(R.string.str_contact_us));
+                txt_email.setVisibility(View.VISIBLE);
+                btn_signal.setText(getString(R.string.str_signal_prob_short));
+                txt_whatprob.setVisibility(View.VISIBLE);
+                txt_whatprob.setText("Que souhaitez vous nous dire ?");
+                btn_signal.setVisibility(View.VISIBLE);
+                btn_signal.setText(getString(R.string.str_contact_us));
+                btn_signal.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String txt_prob = txt_email.getText().toString();
+                        Date date = Calendar.getInstance().getTime();
+                        Intent intent = new Intent(Intent.ACTION_SEND);
+                        intent.setType("message/rfc822");
+                        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"switcher@contact.com"});
+                        intent.putExtra(Intent.EXTRA_SUBJECT, "Demande de contact");
+                        intent.putExtra(Intent.EXTRA_TEXT, txt_prob);
+                        startActivity(intent);
+                    }
+                });
                 break;
         }
     }

@@ -45,12 +45,15 @@ public class ScreenSlidePageFragmentPubli extends Fragment implements View.OnCli
         btn_new_publi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i("Bouton", "Btn_new_publi cliqué");
                 try {
                     final TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
                     if (session != null) {
-
                         Intent intent = new Intent(getActivity(), NouvellePublication.class);
                         startActivityForResult(intent, 1);
+                    }
+                    else {
+                        Toast.makeText(getActivity(), "Vous devez d'abord être connecté !", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -58,6 +61,7 @@ public class ScreenSlidePageFragmentPubli extends Fragment implements View.OnCli
                 }
             }
         });
+
         return myView;
     }
 

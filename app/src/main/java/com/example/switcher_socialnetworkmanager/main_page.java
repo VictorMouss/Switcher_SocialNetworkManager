@@ -46,26 +46,25 @@ public class main_page extends AppCompatActivity implements View.OnClickListener
         TwitterConfig config = new TwitterConfig.Builder(this)//création de la configuration de la session
                 .logger(new DefaultLogger(Log.DEBUG)) //on active l'historique de débug
                 //clé d'API correspondant à notre application
-                .twitterAuthConfig(new TwitterAuthConfig("FBN7F6TUIVSNgv74kn2eamDbi",   "Juo5aBRmkPFamzH4pVu3Fe6P2mRQSrl71BS800Nff66ZgtnN4e"))
+                .twitterAuthConfig(new TwitterAuthConfig("FBN7F6TUIVSNgv74kn2eamDbi", "Juo5aBRmkPFamzH4pVu3Fe6P2mRQSrl71BS800Nff66ZgtnN4e"))
                 .debug(true) //on active le débugage
                 .build();
         Twitter.initialize(config); //on itialise le kit avec la configuration précèdement créée
-        SharedPreferences sharedPreferences = getSharedPreferences("mesPrefs",MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("mesPrefs", MODE_PRIVATE);
         Gson gson = new Gson();
-        String tokenJson = sharedPreferences.getString("cle_token","");
-        String userIdJson = sharedPreferences.getString("cle_user_id","");
-        String userName = sharedPreferences.getString("clef_user_name","");
+        String tokenJson = sharedPreferences.getString("cle_token", "");
+        String userIdJson = sharedPreferences.getString("cle_user_id", "");
+        String userName = sharedPreferences.getString("clef_user_name", "");
         int currentPage;
-        if (!tokenJson.equals("")){
+        if (!tokenJson.equals("")) {
             TwitterAuthToken token = gson.fromJson(tokenJson, TwitterAuthToken.class);
-            Long userId = gson.fromJson(userIdJson,Long.class);
-            TwitterSession session = new TwitterSession(token,userId,userName);
+            Long userId = gson.fromJson(userIdJson, Long.class);
+            TwitterSession session = new TwitterSession(token, userId, userName);
             TwitterCore.getInstance().getSessionManager().setActiveSession(session);
-            ScreenSlidePageFragmentConnexion.etatConnexionTwitter=true;
-            currentPage = 1 ;
-        }
-        else {
-            ScreenSlidePageFragmentConnexion.etatConnexionTwitter=false;
+            ScreenSlidePageFragmentConnexion.etatConnexionTwitter = true;
+            currentPage = 1;
+        } else {
+            ScreenSlidePageFragmentConnexion.etatConnexionTwitter = false;
             currentPage = 0;
         }
         setContentView(R.layout.bottom_buttons);

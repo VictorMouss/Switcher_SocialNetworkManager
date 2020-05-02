@@ -37,7 +37,7 @@ public class ScreenSlidePageFragmentConnexion extends Fragment implements View.O
                 startActivityForResult(intent, 1);
             }
         });
-        vérifierConnexionTwitter();
+        vérifierConnexions();
         return myView;
     }
 
@@ -74,14 +74,13 @@ public class ScreenSlidePageFragmentConnexion extends Fragment implements View.O
                 case 1:
                     etatConnexionTwitter = false;
                     Log.i("Activity Result", "Disconnected");
-
             }
         }
-        vérifierConnexionTwitter();
+        vérifierConnexions();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void vérifierConnexionTwitter() {
+    private void vérifierConnexions() {
         if (etatConnexionTwitter == false) {
             btn_Twitter.setForeground(getResources().getDrawable(R.drawable.logo_twitter_disconnect));
             btn_Twitter.setOnClickListener(new View.OnClickListener() {
@@ -102,5 +101,4 @@ public class ScreenSlidePageFragmentConnexion extends Fragment implements View.O
             });
         }
     }
-
 }

@@ -1,13 +1,21 @@
 package com.example.switcher_socialnetworkmanager;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+
+import com.twitter.sdk.android.core.TwitterCore;
+import com.twitter.sdk.android.core.TwitterSession;
 
 
 public class ScreenSlidePageFragmentParametres extends Fragment implements View.OnClickListener{
@@ -56,8 +64,42 @@ public class ScreenSlidePageFragmentParametres extends Fragment implements View.
             }
         });
 
-        return myView;
 
+        btn_disconnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
+                if (session!=null) {
+                    new AlertDialog.Builder(getContext()).setTitle("Déconnexion")
+                            .setMessage("Voulez-vous vous déconnecter de tous les réseaux ?")
+                            .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    TwitterCore.getInstance().getSessionManager().clearActiveSession();
+                                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("mesPrefs", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor prefEditor = sharedPreferences.edit();
+                                    prefEditor.clear();
+                                    prefEditor.commit();
+                                    Toast.makeText(getActivity(), "Vous êtes déconnecté de Twitter", Toast.LENGTH_SHORT).show();
+                                    ScreenSlidePageFragmentConnexion.etatConnexionTwitter = false;
+                                    getActivity().recreate();
+                                }
+                            })
+                            .setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            })
+                            .show();
+                }
+                else {
+                    Toast.makeText(getActivity(), "Aucune connexion en cours", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        return myView;
     }
 
     @Override

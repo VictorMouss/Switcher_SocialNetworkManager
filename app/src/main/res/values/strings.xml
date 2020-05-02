@@ -22,5 +22,6 @@
         \nRéalisé par Charlotte Blanc, Damien Ferrero, Victor Moussally et Paul Saillard.
         \n\n\n "The Switcher : Social Network Manager", tous droits réservés"</string>
     <string name="str_whatprob">Quel est votre problème ?</string>
+    <string name="str_signal_prob_short">Signaler un problème</string>
 
 </resources>
