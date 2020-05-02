@@ -8,9 +8,11 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -54,30 +56,39 @@ public class NouvellePublication extends AppCompatActivity {
             }
         });
 
+        edTxt_message.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                String txt_message = edTxt_message.getText().toString();
+                //on récupère la session Twitter en cours
+                final TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
+                final Intent intent = new ComposerActivity.Builder(currentApp) //on appelle le builder
+                        .session(session) //avec la session en cours
+                        .text(txt_message) //le message de notre choix
+                        .hashtags()//hastags
+                        .darkTheme()//avec le theme foncé
+                        .createIntent();//on crée l'intent
+                startActivityForResult(intent, 1);
+                return true;
+            }
+        });
+
         btn_publier.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String txt_message = edTxt_message.getText().toString();
-                try {
-                    //on récupère la session Twitter en cours
-                    final TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
-                    final Intent intent = new ComposerActivity.Builder(currentApp) //on appelle le builder
-                            .session(session) //avec la session en cours
-                            .text(txt_message) //le message de notre choix
-                            .hashtags()//hastags
-                            .darkTheme()
-                            .createIntent();
-                    startActivityForResult(intent, 1);
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    finish();
-                    Toast.makeText(NouvellePublication.this, "Vous devez d'abord être connecté !", Toast.LENGTH_SHORT).show();
-                }
+                //on récupère la session Twitter en cours
+                final TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
+                final Intent intent = new ComposerActivity.Builder(currentApp) //on appelle le builder
+                        .session(session) //avec la session en cours
+                        .text(txt_message) //le message de notre choix
+                        .hashtags()//hastags
+                        .darkTheme()//avec le theme foncé
+                        .createIntent();//on crée l'intent
+                startActivityForResult(intent, 1);
             }
         });
+
         btn_retour_publi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,8 +105,6 @@ public class NouvellePublication extends AppCompatActivity {
                     // success
                     final Long tweetId = intentExtras.getLong(TweetUploadService.EXTRA_TWEET_ID);
                     lastTweetId = tweetId;
-
-
                     SharedPreferences prefsStockees = getSharedPreferences("mesPrefs", MODE_PRIVATE);
                     Gson gson = new Gson();
                     String listePublicationTxtJson = prefsStockees.getString("cle_listePublications", "");
@@ -135,12 +144,5 @@ public class NouvellePublication extends AppCompatActivity {
         };
         registerReceiver(broadcast_reciever, new IntentFilter(TweetUploadService.UPLOAD_SUCCESS));
     }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.i("Activity Result Tweet", "Activity result OK. Request code : " + requestCode + " - Result code : " + resultCode);
-    }
-
 
 }

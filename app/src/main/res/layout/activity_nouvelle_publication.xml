@@ -82,6 +82,7 @@
                 android:ems="10"
                 android:inputType="textShortMessage"
                 android:text="Que voulez-vous dire ?"
+                android:imeOptions="actionSend"
                 android:textColor="#FFFFFF" />
 
         </LinearLayout>
