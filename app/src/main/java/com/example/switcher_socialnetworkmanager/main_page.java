@@ -46,14 +46,14 @@ public class main_page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         TwitterConfig config = new TwitterConfig.Builder(this)//création de la configuration de la session
                 .logger(new DefaultLogger(Log.DEBUG)) //on active l'historique de débug
-                //clé d'API correspondant à notre application
+                //clé d'API correspondant à notre application (consumerSecret) & à l'API utilisée (consumerKey)
                 .twitterAuthConfig(new TwitterAuthConfig("FBN7F6TUIVSNgv74kn2eamDbi", "Juo5aBRmkPFamzH4pVu3Fe6P2mRQSrl71BS800Nff66ZgtnN4e"))
                 .debug(true) //on active le débugage
                 .build();
         Twitter.initialize(config); //on itialise le kit avec la configuration précèdement créée
 
         /*Stockage de la session dans les SharedPreferences*/
-        SharedPreferences sharedPreferences = getSharedPreferences("mesPrefs", MODE_PRIVATE); //on récupère les SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("cleConnexion", MODE_PRIVATE); //on récupère les SharedPreferences
         Gson gson = new Gson(); //Création du Gson
         /*Récupération du Token de connexion (en Json), userID (en Json) et userName*/
         String tokenJson = sharedPreferences.getString("cle_token", "");
@@ -162,37 +162,33 @@ public class main_page extends AppCompatActivity {
         public int getItemCount() { //cette méthode permet d'avoir le nombre de pages existantes,
             //nous nous en servirons pour changer les icones des boutons en fonction de la page actuelle
             int positionActuelle = viewPager.getCurrentItem(); //récupération de la page actuellement affichée
-            switch (positionActuelle) { //en fonction de la page affichée, on change les icones des boutons de navigation
-                //on doit gérer les erreurs lancées par les méthodes setForeGround, qui arrivent
-                // lors de l'éxécution de la méthode la première fois, lorsque que les boutons
-                // ne sont pas définie (pas d'actions particulières dans le catch)
-                case 0:
-                    try {
+            try {
+                /*
+                En fonction de la page affichée, on change les icones des boutons de navigation
+                on doit gérer les erreurs lancées par les méthodes setForeGround, qui arrivent
+                 lors de l'éxécution de la méthode la première fois, lorsque que les boutons
+                 ne sont pas définie (pas d'actions particulières dans le catch)
+
+                 Pour se faire, on dessineles boutons à l'état de base, puis en fonction du bouton
+                 enfoncé on re-dessine sur ce dernier l'icon correspondant au fait qu'il soit enfoncé
+                 */
+                btn_account.setForeground(getResources().getDrawable(R.drawable.bouton_account_small));
+                btn_publi.setForeground(getResources().getDrawable(R.drawable.bouton_publi_small));
+                btn_settings.setForeground(getResources().getDrawable(R.drawable.bouton_settings_small));
+
+                switch (positionActuelle) {
+                    case 0:
                         btn_account.setForeground(getResources().getDrawable(R.drawable.bouton_account_small_down));
-                        btn_publi.setForeground(getResources().getDrawable(R.drawable.bouton_publi_small));
-                        btn_settings.setForeground(getResources().getDrawable(R.drawable.bouton_settings_small));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case 1:
-                    try {
-                        btn_account.setForeground(getResources().getDrawable(R.drawable.bouton_account_small));
+                        break;
+                    case 1:
                         btn_publi.setForeground(getResources().getDrawable(R.drawable.bouton_publi_small_down));
-                        btn_settings.setForeground(getResources().getDrawable(R.drawable.bouton_settings_small));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case 2:
-                    try {
-                        btn_account.setForeground(getResources().getDrawable(R.drawable.bouton_account_small));
-                        btn_publi.setForeground(getResources().getDrawable(R.drawable.bouton_publi_small));
+                        break;
+                    case 2:
                         btn_settings.setForeground(getResources().getDrawable(R.drawable.bouton_settings_small_down));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    break;
+                        break;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
             return NUM_PAGES; //on return l'attribut statique (but premier de la méthode !)
         }

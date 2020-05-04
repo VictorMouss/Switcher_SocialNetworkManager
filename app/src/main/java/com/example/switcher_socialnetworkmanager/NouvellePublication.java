@@ -97,6 +97,7 @@ public class NouvellePublication extends AppCompatActivity {
                 String txt_message = edTxt_message.getText().toString();
                 //on récupère la session Twitter en cours
                 final TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
+                Log.i("OKKKKKKKKK", ""+session);
                 //on appelle le builder d'un TweetComposer (natif à l'API que nous utilisons)
                 final Intent intent = new ComposerActivity.Builder(currentApp)
                         .session(session) //avec la session en cours

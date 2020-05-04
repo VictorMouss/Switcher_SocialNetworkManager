@@ -15,10 +15,11 @@ import androidx.fragment.app.Fragment;
 public class ScreenSlidePageFragmentConnexion extends Fragment {
 
     /*
-    Attributs du fragment
+    Attributs du fragment correspondant à la page de Connexion
      */
+
     private Button btn_Twitter; //Bouton pour se connecter à Twitter
-    private View myView; //view du Fragment
+    private View myView; //view du Fragement contenant le layout a retourner à la fin de la méthode onCreate
     static boolean etatConnexionTwitter;//boolean permettant de savoir si on est connecté à Twitter
     // (false=déconnecté ; true = connecté)
 
@@ -48,7 +49,7 @@ public class ScreenSlidePageFragmentConnexion extends Fragment {
         vérifierConnexions(); //méthode permettant de mettre à jour les icones des boutonsainsi
         // que l'action a effectuer lorsqu'on clique sur les boutons
         return myView; //on return la view créé grâce à l'inflater (la méthode onCreate d'un Fragment
-        // doit nécessairement retourner cette View)
+        // doit nécessairement retourner cette View contenant le layout)
     }
 
     //Requires car la méthode setForeground dans la méthode vérifierConnexions() nécessite une
@@ -73,7 +74,8 @@ public class ScreenSlidePageFragmentConnexion extends Fragment {
         } else if (requestCode == 2 && resultCode == 1) {
             etatConnexionTwitter = false; //on met l'attribut à false (déconnecté)
         }
-        vérifierConnexions();; //méthode permettant de mettre à jour les icones des boutons ainsi
+        vérifierConnexions();
+        ; //méthode permettant de mettre à jour les icones des boutons ainsi
         // que l'action a effectuer lorsqu'on clique sur les boutons
     }
 
